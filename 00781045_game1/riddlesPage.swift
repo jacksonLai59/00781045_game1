@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import AVFoundation
 
 var riddles = [
     Riddles(riddle:"三人騎牛，牛無角(打一字)",answer:"奉"),
@@ -35,7 +36,19 @@ var riddles = [
     Riddles(riddle:"有頭有臉沒有足，身軀活像大葫蘆，長弓一把腰間補，歌聲優雅真不俗(射一樂器)",answer:"小提琴"),
     Riddles(riddle:"一隻小船兩頭翹，嫩肉全靠骨頭包(射一食物)",answer:"菱角"),
     Riddles(riddle:"一家分兩院，兩院姐妹多，多的倒比少的少，少的倒比多的多",answer:"算盤"),
-    Riddles(riddle:"外表如雪，肚裡一團黑，從來不偷竊，硬說他是賊(射一生物) ",answer:"烏賊")    ]
+    Riddles(riddle:"外表如雪，肚裡一團黑，從來不偷竊，硬說他是賊(射一生物) ",answer:"烏賊"),
+    Riddles(riddle:"王老太太整天喋喋不休，可他有一個月說話最少，是哪一個月 ",answer:"二月"),
+    Riddles(riddle:"為什麼把刀塗成藍色的槍就會很憂鬱",answer:"刀槍不入(BLUE)"),
+    Riddles(riddle:"什麼時候二加一會不等於三",answer:"算錯的時候"),
+    Riddles(riddle:"有十隻羊，九隻蹲在羊圈，一隻蹲在豬圈",answer:"抑揚頓挫(一羊蹲錯)"),
+    Riddles(riddle:"上完廁所，要用左手還是右手擦屁股會比較好",answer:"用衛生紙擦比較好"),
+    Riddles(riddle:"汽車會飛，猜一種飲料 ",answer:"咖啡 (Car飛)"),
+    Riddles(riddle:"老師要點人背書，小貓、小狗和小雞誰會先被叫起來背書",answer:"小狗(旺旺仙貝)"),
+    Riddles(riddle:"為什麼畫家喜歡畫粗的繩子不喜歡畫細的繩子 ",answer:"出神入化(粗繩入畫)"),
+    Riddles(riddle:"象皮、老虎皮、獅子皮，哪一個最不好",answer:"象皮(橡皮擦)"),
+    Riddles(riddle:"誰是最失敗的人",answer:"蜘蛛人(因為spiderman(失敗的man))"),
+    Riddles(riddle:"地震的時候，在什麼地方最安全",answer:"在飛機上"),
+    Riddles(riddle:"為什麼狐狸常常跌倒",answer:"因為腳滑(狡猾)")]
 
 struct riddlesPage: View {
     
@@ -66,6 +79,23 @@ struct riddlesPage: View {
                     .overlay(
                         RoundedRectangle(cornerRadius: 30)
                             .stroke(Color(red: 178/255, green: 34/255, blue: 34/255), lineWidth: 5))
+                
+                //念題目
+                Button(action:{
+                    let utterance =  AVSpeechUtterance(string: "\(riddle1.riddle)")
+                    utterance.voice = AVSpeechSynthesisVoice(language: "zh-TW")
+                    utterance.rate = 0.4
+                    let synthesizer = AVSpeechSynthesizer()
+                    synthesizer.speak(utterance)
+                }){
+                    HStack() {
+                        Image(systemName: "play.rectangle")
+                            .resizable()
+                            .frame(width: 25, height: 20)
+                        Text("念給我聽")
+                            .font(.title3)
+                    }
+                }.padding()
                 
                 HStack{
                     //check answer

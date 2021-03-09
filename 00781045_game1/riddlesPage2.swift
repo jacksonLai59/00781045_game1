@@ -6,7 +6,9 @@
 //
 
 import SwiftUI
+import AVFoundation
 
+//燈謎題庫
 var riddles2 = [
     Riddles2(riddle:"三人騎牛，牛無角(打一字)",answer:"奉", pick: ["秦","奉","春"]),
     Riddles2(riddle:"正月沒有初一(打一字)",answer:"肯", pick: ["肯","背","脊"]),
@@ -34,7 +36,12 @@ var riddles2 = [
     Riddles2(riddle:"有頭有臉沒有足，身軀活像大葫蘆，長弓一把腰間補，歌聲優雅真不俗(射一樂器)",answer:"小提琴", pick: ["小提琴","琵琶","二胡"]),
     Riddles2(riddle:"一隻小船兩頭翹，嫩肉全靠骨頭包(射一食物)",answer:"菱角", pick: ["開心果","菱角","花生"]),
     Riddles2(riddle:"一家分兩院，兩院姐妹多，多的倒比少的少，少的倒比多的多",answer:"算盤", pick: ["算盤","珍珠","門簾"]),
-    Riddles2(riddle:"外表如雪，肚裡一團黑，從來不偷竊，硬說他是賊(射一生物) ",answer:"烏賊", pick: ["烏賊","河豚","海豚"])    ]
+    Riddles2(riddle:"外表如雪，肚裡一團黑，從來不偷竊，硬說他是賊(射一生物) ",answer:"烏賊", pick: ["烏賊","河豚","海豚"]),
+    Riddles2(riddle:"象皮、老虎皮、獅子皮，哪一個最不好",answer:"象皮", pick: ["象皮","老虎皮","獅子皮"]),
+    Riddles2(riddle:"誰是最失敗的人",answer:"蜘蛛人", pick: ["鋼鐵人","蜘蛛人","超人"]),
+    Riddles2(riddle:"王老太太整天喋喋不休，可他有一個月說話最少，是哪一個月 ",answer:"二月", pick: ["二月","十月","十二月"]),
+    Riddles2(riddle:"第十一本書",answer:"不可思議", pick: ["琴棋書畫","入木三分","不可思議"]),
+    Riddles2(riddle:"一個人被刷成金色",answer:"一鳴驚人", pick: ["一五一十","一字千金","一鳴驚人"]) ]
 
 struct riddlesPage2: View {
     
@@ -66,7 +73,25 @@ struct riddlesPage2: View {
                     .overlay(
                         RoundedRectangle(cornerRadius: 30)
                             .stroke(Color(red: 178/255, green: 34/255, blue: 34/255), lineWidth: 5))
-                    .padding()
+                   
+                
+                //念題目
+                Button(action:{
+                    let utterance =  AVSpeechUtterance(string: "\(riddle2.riddle)")
+                    utterance.voice = AVSpeechSynthesisVoice(language: "zh-TW")
+                    utterance.rate = 0.4
+                    let synthesizer = AVSpeechSynthesizer()
+                    synthesizer.speak(utterance)
+                }){
+                    HStack() {
+                        Image(systemName: "play.rectangle")
+                            .resizable()
+                            .frame(width: 25, height: 20)
+                        Text("念給我聽")
+                            .font(.title3)
+                    }
+                }.padding()
+                
                 //answers 1
                 Button(action: {
                     if riddle2.pick[0] == riddle2.answer{
@@ -91,6 +116,7 @@ struct riddlesPage2: View {
                             RoundedRectangle(cornerRadius: 20)
                                 .stroke(Color(red: 255/255, green: 165/255, blue: 0/255), lineWidth: 5))
                 })
+                
                 //answers 2
                 Button(action: {
                     if riddle2.pick[1] == riddle2.answer{
@@ -139,7 +165,7 @@ struct riddlesPage2: View {
                             RoundedRectangle(cornerRadius: 20)
                                 .stroke(Color(red: 255/255, green: 165/255, blue: 0/255), lineWidth: 5))
                 })
-//                Text("\(score)")
+                //                Text("\(score)")
                 //start over button
                 if show2{
                     Button(action: {
@@ -162,7 +188,7 @@ struct riddlesPage2: View {
                 }
             }
             .sheet(isPresented: $show){ scoreView(score: $score) }
-           
+            
         }
     }
 }

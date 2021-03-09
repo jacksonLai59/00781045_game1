@@ -17,8 +17,18 @@ struct scoreView: View {
             VStack{
                 Text("總分：\(score)")
                     .font(.title)
-                if score >= 80{
-                    Text("答對了 8 題以上，表現不錯")
+                if score == 100{
+                    Text("太強了，你是猜燈謎大師吧！")
+                        .font(.title3)
+                        .padding()
+                }
+                else if score >= 90{
+                    Text("接近滿分了，加油加油！")
+                        .font(.title3)
+                        .padding()
+                }
+                else if score >= 80{
+                    Text("答對了 8 題以上，看來你有認真上課")
                         .font(.title3)
                         .padding()
                 }

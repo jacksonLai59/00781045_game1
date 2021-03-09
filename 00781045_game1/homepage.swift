@@ -17,9 +17,13 @@ struct homepage: View {
                     .navigationBarTitleDisplayMode(.inline)
                 
                 VStack{
-                    Text("猜燈謎")
-                        .font(.largeTitle)
-                        .foregroundColor(Color(red: 255/255, green: 215/255, blue: 0/255))
+//                    Text("大家一起猜燈謎")
+//                        .font(.system(size: 60))
+//                        .foregroundColor(Color(red: 255/255, green: 215/255, blue: 0/255))
+                    Image("logo")
+                        .resizable()
+                        .frame(width: 340, height: 170, alignment: .center)
+                        .offset(x: 0, y: -50)
                     
                     NavigationLink(
                         destination: riddlesPage(),
@@ -37,6 +41,7 @@ struct homepage: View {
                                         .stroke(Color(red: 255/255, green: 215/255, blue: 0/255), lineWidth: 5))
                         })
                         .padding()
+                    
                     NavigationLink(
                         destination: riddlesPage2(),
                         label: {
